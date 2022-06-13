@@ -6,6 +6,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable camelcase */
 const express = require('express');
+require('dotenv').config();
 
 const app = express();
 const bodyparser = require('body-parser');
@@ -138,7 +139,7 @@ app.get('/reviews/meta', (req, res) => {
   // console.log('{');
   // console.log(` product_id: ${product_id}`);
   // console.log('}');
-
+  console.log(process.env);
 
   db.query(`CREATE TEMPORARY TABLE IF NOT EXISTS p${product_id} SELECT * from everythingTogether where product_id = ${product_id};`, (err, result) => {
     if (err) {
