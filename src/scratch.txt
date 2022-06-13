@@ -1,0 +1,23 @@
+LOAD DATA LOCAL INFILE '/Users/scottclary/Downloads/dbstuff/reviews.csv' INTO TABLE review FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS (review_id, product_id, star_rating, @date, summary, body, @recommend, @reported, name, email, response, helpfulness) set date = FROM_UNIXTIME(@date/1000), recommend = (SELECT IF(@recommend LIKE 'true', 1, 0)), reported = (SELECT IF (@reported LIKE 'false', 0, 1));
+
+
+SELECT COUNT(*) FROM REVIEW where product_id=970349 GROUP BY recommend;
+
+SELECT t1.review_id, product_id, date, star_rating, recommend, body, summary, name, email, reported, response, helpfulness, characteristic FROM REVIEW as t1 left join characteristic_review as t2 on t1.review_id = t2.review_id left join characteristic as t3 on t3.characteristic_id = t2.characteristic_id limit 3;
+
+
+select product_id, t1.review_id, date from review as t1 inner join characteristic_review as t2 on t1.review_id = t2.review_id limit 3;
+
+SELECT t1.review_id, product_id, date, star_rating, recommend, body, summary, name, email, reported, response, helpfulness FROM REVIEW as t1 right join characteristic_review as t2 on t1.review_id = t2.review_id
+
+
+SELECT * FROM REVIEW as t1 right join characteristic_review as t2 on t1.review_id = t2.review_id limit 10;
+
+SELECT * FROM REVIEW as t1 left join characteristic_review as t2 on t1.review_id = t2.review_id limit 10;
+
+
+CREATE TEMPORARY TABLE p1 SELECT * from everythingTogether where product_id = 1;
+select distinct review_id, star_rating from p1;
+
+
+select count(*), star_rating from (select distinct review_id, star_rating from p1) as t1 group by star_rating;
