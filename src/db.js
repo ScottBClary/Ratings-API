@@ -2,6 +2,7 @@ const mysql = require('mysql2');
 require('dotenv').config();
 var db;
 console.log('Am i using a password?');
+console.log(process.env);
 console.log(process.env.password);
 console.log(process.env.DEV);
 if (process.env.DEV === 'SERVER') {
