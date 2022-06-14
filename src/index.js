@@ -196,7 +196,7 @@ app.get('/reviews/meta', (req, res) => {
   //   });
   // });
 
-  db.query(`SELECT star_rating, COUNT(*) FROM REVIEW where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
+  db.query(`SELECT star_rating, COUNT(*) FROM review where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
     if (err) {
       console.log('error getting star ratings');
       res.send(err.message);
@@ -208,7 +208,7 @@ app.get('/reviews/meta', (req, res) => {
 
       //* NEXT QUERY
 
-      db.query(`SELECT COUNT(*), recommend FROM REVIEW where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
+      db.query(`SELECT COUNT(*), recommend FROM review where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
         if (err) {
           console.log('error getting recommended');
           res.send(err);
