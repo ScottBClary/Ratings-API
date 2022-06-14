@@ -19,13 +19,13 @@ app.use(bodyparser.urlencoded({
 }));
 // Database connection
 
-db.connect((err) => {
-  if (err) {
-    console.log(`error: ${err.message}`);
-  }
-  console.log('Connected to the MySQL server.');
-  return 0;
-});
+// db.connect((err) => {
+//   if (err) {
+//     console.log(`error: ${err.message}`);
+//   }
+//   console.log('Connected to the MySQL server.');
+//   return 0;
+// });
 
 // route for Home page
 app.get('/', (req, res) => {
