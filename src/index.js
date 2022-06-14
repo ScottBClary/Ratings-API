@@ -231,7 +231,7 @@ app.get('/reviews/meta', (req, res) => {
           console.log(result);
           data.characteristics = {};
           for (var char of result) {
-            data.characteristics[char.characteristic.replaceAll('"', '')] = { value: char.average };
+            data.characteristics[char.characteristic.toString().replaceAll('"', '')] = { value: char.average };
           }
           res.send(data);
         }
