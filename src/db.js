@@ -3,9 +3,9 @@ require('dotenv').config();
 var db;
 console.log('Am i using a password?');
 console.log(process.env);
-console.log(process.env.password);
-console.log(process.env.DEV);
-if (process.env.DEV === 'SERVER') {
+console.log(process.env.PASSWORD);
+console.log(process.env.ENV);
+if (process.env.ENV === 'SERVER') {
   db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
