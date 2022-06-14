@@ -1,6 +1,9 @@
 const mysql = require('mysql2');
 require('dotenv').config();
 var db;
+console.log('Am i using a password?');
+console.log(process.env.password);
+console.log(process.env.DEV);
 if (process.env.DEV === 'SERVER') {
   db = mysql.createConnection({
     host: 'localhost',
@@ -16,7 +19,7 @@ if (process.env.DEV === 'SERVER') {
     multipleStatements: true,
   });
 }
-// db.query(`USE SDC_Ratings`, (error, results, fields) => {new-password
+// db.query(`USE SDC_Ratings`, (error, results, fields) => {
 //   if (error) {
 //     console.log(error);
 //     console.log('there was an error');
