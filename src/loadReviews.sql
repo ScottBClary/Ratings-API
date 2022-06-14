@@ -19,6 +19,16 @@ CREATE TABLE `everythingTogether` AS (SELECT t1.review_id, product_id, date, sta
 
 CREATE INDEX product_id_index ON everythingTogether (product_id);
 
+
 -- CREATE INDEX review_id_index on everythingTogether (review_id);
 
 -- CREATE INDEX recommend_index on everythingTogether (recommend)
+
+--SERVER COMMANDS
+
+LOAD DATA INFILE '~/mysqlfiles/reviews.csv' INTO TABLE review FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS (review_id, product_id, star_rating, @date, summary, body, @recommend, @reported, name, email, response, helpfulness) set date = FROM_UNIXTIME(@date/1000), recommend = (SELECT IF(@recommend LIKE 'true', 1, 0)), reported = (SELECT IF (@reported LIKE 'false', 0, 1));
+
+LOAD DATA LOCAL INFILE '~/mysqlfiles/characteristics.csv' INTO TABLE characteristic FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS (characteristic_id,@dummy,characteristic);
+
+CREATE INDEX product_id_index ON review (product_id);
+

@@ -19,5 +19,21 @@ SELECT * FROM REVIEW as t1 left join characteristic_review as t2 on t1.review_id
 CREATE TEMPORARY TABLE p1 SELECT * from everythingTogether where product_id = 1;
 select distinct review_id, star_rating from p1;
 
-
+scp -i scottkey.pem dump.sql  ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/home/ubuntu
 select count(*), star_rating from (select distinct review_id, star_rating from p1) as t1 group by star_rating;
+
+
+ db.query(`SELECT COUNT(*), recommend FROM REVIEW where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
+
+
+  SELECT
+
+ db.query(`select characteristic, AVG(t2.rating) AS average from review t1 inner join characteristic_review t2 inner join characteristic t3 where t1.product_id = ${product_id} AND t2.review_id = t1.review_id AND t3.characteristic_id = t2.characteristic_id group by characteristic;`, (err, result) => {
+
+$scp -i ~/Desktop/amazon.pem ~/Desktop/MS115.fa  ubuntu@ec2-54-166-128-20.compute-1.amazonaws.com:~/data/
+scp -i ~/AWSlaunch/scottkey.pem ~/Downloads/dbstuff/reviews.csv ubuntu@ec2-18-223-160-220.us-east-2.compute.amazonaws.com:~/data/
+scp -i ~/AWSlaunch/scottkey.pem ~/Downloads/dbstuff/characteristics.csv ubuntu@ec2-18-223-160-220.us-east-2.compute.amazonaws.com:~/data/
+scp -i ~/AWSlaunch/scottkey.pem ~/Downloads/dbstuff/characteristic_reviews.csv ubuntu@ec2-18-223-160-220.us-east-2.compute.amazonaws.com:~/data/
+
+scp -i scottkey.pem ./dump.sql  ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/home/ubuntu
+scp -i scottkey.pem dump.sql ec2-user@ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/
