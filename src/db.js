@@ -7,5 +7,12 @@ const db = mysql.createConnection({
   multipleStatements: true,
 });
 db.query(`USE SDC_Ratings`, (error, results, fields) => {
+  if (error) {
+    console.log(error);
+    console.log('there was an error');
+    console.log(error.message);
+  } else {
+    console.log('connection succesful');
+  }
 });
 module.exports = db;
