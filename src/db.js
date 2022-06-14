@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 require('dotenv').config();
-var db;
+
+let db;
 console.log('Am i using a password?');
 console.log(process.env);
 console.log(process.env.PASSWORD);
@@ -20,6 +21,16 @@ if (process.env.ENV === 'SERVER') {
     multipleStatements: true,
   });
 }
+db.query('USE SDC_Ratings', (error, results, fields) => {
+  if (error) {
+    console.log(error);
+    console.log('there was an error');
+    console.log(error.message);
+  } else {
+    console.log('connection succesful');
+    return 0;
+  }
+});
 // db.query(`USE SDC_Ratings`, (error, results, fields) => {
 //   if (error) {
 //     console.log(error);
