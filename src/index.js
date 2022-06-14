@@ -190,7 +190,7 @@ app.get('/reviews/meta', (req, res) => {
   db.query(`SELECT star_rating, COUNT(*) FROM REVIEW where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
     if (err) {
       console.log('error getting star ratings');
-      console.log(err);
+      res.send(err);
     } else {
       data.ratings = {};
       for (var x of result) {
@@ -202,7 +202,7 @@ app.get('/reviews/meta', (req, res) => {
       db.query(`SELECT COUNT(*), recommend FROM REVIEW where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
         if (err) {
           console.log('error getting recommended');
-          console.log(err);
+          res.send(err);
         } else {
           data.recommended = {};
           // let num = result[`COUNT(*)`][0];
