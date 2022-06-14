@@ -190,7 +190,7 @@ app.get('/reviews/meta', (req, res) => {
   db.query(`SELECT star_rating, COUNT(*) FROM REVIEW where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
     if (err) {
       console.log('error getting star ratings');
-      res.send(err);
+      res.send(err.message);
     } else {
       data.ratings = {};
       for (var x of result) {
