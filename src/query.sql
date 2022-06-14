@@ -88,19 +88,12 @@ CREATE TABLE `characteristic_review` (
 --
 -- ---
 
-DROP TABLE IF EXISTS `product_characteristic`;
 
-CREATE TABLE `product_characteristic` (
-  `product_id` INTEGER NOT NULL AUTO_INCREMENT,
-  `characteristic_id` INTEGER NOT NULL,
-  PRIMARY KEY (`product_id`, `characteristic_id`)
-);
+
 
 -- ---
 -- Foreign Keys
 -- ---
-
-ALTER TABLE `product_characteristic` ADD FOREIGN KEY (characteristic_id) REFERENCES `characteristic` (`characteristic_id`);
 ALTER TABLE `characteristic_review` ADD FOREIGN KEY (review_id) REFERENCES `review` (`review_id`);
 ALTER TABLE `characteristic_review` ADD FOREIGN KEY (characteristic_id) REFERENCES `characteristic` (`characteristic_id`);
 -- ---
