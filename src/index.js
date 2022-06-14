@@ -24,7 +24,16 @@ app.use(bodyparser.urlencoded({
 //     console.log(`error: ${err.message}`);
 //   }
 //   console.log('Connected to the MySQL server.');
-//   return 0;
+//   db.query('USE SDC_Ratings', (error, results, fields) => {
+//     if (error) {
+//       console.log(error);
+//       console.log('there was an error');
+//       console.log(error.message);
+//     } else {
+//       console.log('connection succesful');
+//       return 0;
+//     }
+//   });
 // });
 
 // route for Home page
@@ -139,53 +148,53 @@ app.get('/reviews/meta', (req, res) => {
   // console.log('{');
   // console.log(` product_id: ${product_id}`);
   // console.log('}');
-//   console.log(process.env);
+  //   console.log(process.env);
 
-//   db.query(`CREATE TEMPORARY TABLE IF NOT EXISTS p${product_id} SELECT * from everythingTogether where product_id = ${product_id};`, (err, result) => {
-//     if (err) {
-//       console.log('error making temp table');
-//       console.log(err);
-//     } else {
-//       // star ratings
-//       db.query(`select COUNT(*), star_rating from (select distinct review_id, star_rating from p${product_id}) as t1 group by star_rating;`, (err, result) => {
-//         if (err) {
-//           console.log('error getting star ratings');
-//           console.log(err);
-//         } else {
-//           data.ratings = {};
-//           for (var x of result) {
-//             data.ratings[x.star_rating] = x['COUNT(*)'];
-//           }
-//           db.query(`select COUNT(*), recommend from p${product_id} group by recommend;`, (err, result) => {
-//             if (err) {
-//               console.log('error getting recommend');
-//               console.log(err);
-//             } else {
-//               data.recommend = {};
-//               for (var x of result) {
-//                 data.recommend[x.recommend] = x['COUNT(*)'];
-//               }
-//               // data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
-//               // data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
-//               db.query(`select characteristic, avg(rating) from p${product_id} group by characteristic;`, (err, result) => {
-//                 if (err) {
-//                   console.log('error getting characteristic ratings');
-//                   console.log(err);
-//                 } else {
-//                   data.characteristic = {};
-//                   for (var x of result) {
-//                     data.characteristic[x.characteristic.replaceAll('"','')] = {value: x.value};
-//                   }
-//                   res.send(data);
-//                 }
-//               });
-//             }
-//           });
-//         }
-//       });
-//     }
-//   });
-// });
+  //   db.query(`CREATE TEMPORARY TABLE IF NOT EXISTS p${product_id} SELECT * from everythingTogether where product_id = ${product_id};`, (err, result) => {
+  //     if (err) {
+  //       console.log('error making temp table');
+  //       console.log(err);
+  //     } else {
+  //       // star ratings
+  //       db.query(`select COUNT(*), star_rating from (select distinct review_id, star_rating from p${product_id}) as t1 group by star_rating;`, (err, result) => {
+  //         if (err) {
+  //           console.log('error getting star ratings');
+  //           console.log(err);
+  //         } else {
+  //           data.ratings = {};
+  //           for (var x of result) {
+  //             data.ratings[x.star_rating] = x['COUNT(*)'];
+  //           }
+  //           db.query(`select COUNT(*), recommend from p${product_id} group by recommend;`, (err, result) => {
+  //             if (err) {
+  //               console.log('error getting recommend');
+  //               console.log(err);
+  //             } else {
+  //               data.recommend = {};
+  //               for (var x of result) {
+  //                 data.recommend[x.recommend] = x['COUNT(*)'];
+  //               }
+  //               // data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
+  //               // data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
+  //               db.query(`select characteristic, avg(rating) from p${product_id} group by characteristic;`, (err, result) => {
+  //                 if (err) {
+  //                   console.log('error getting characteristic ratings');
+  //                   console.log(err);
+  //                 } else {
+  //                   data.characteristic = {};
+  //                   for (var x of result) {
+  //                     data.characteristic[x.characteristic.replaceAll('"','')] = {value: x.value};
+  //                   }
+  //                   res.send(data);
+  //                 }
+  //               });
+  //             }
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // });
 
   db.query(`SELECT star_rating, COUNT(*) FROM REVIEW where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
     if (err) {
@@ -213,7 +222,7 @@ app.get('/reviews/meta', (req, res) => {
         }
       });
 
-      //We need characteristics and the name of characteristics
+      // We need characteristics and the name of characteristics
       db.query(`select characteristic, AVG(t2.rating) AS average from review t1 inner join characteristic_review t2 inner join characteristic t3 where t1.product_id = ${product_id} AND t2.review_id = t1.review_id AND t3.characteristic_id = t2.characteristic_id group by characteristic;`, (err, result) => {
         if (err) {
           console.log('error getting characteristic ratings');
@@ -222,16 +231,14 @@ app.get('/reviews/meta', (req, res) => {
           console.log(result);
           data.characteristics = {};
           for (var char of result) {
-            data.characteristics[char.characteristic.replaceAll('"','')] = { value: char.average };
+            data.characteristics[char.characteristic.replaceAll('"', '')] = { value: char.average };
           }
           res.send(data);
         }
       });
     }
   });
-
 });
-
 
 // res.send('Get recieved for reviews/meta');
 
