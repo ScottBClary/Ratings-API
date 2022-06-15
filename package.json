@@ -5,7 +5,8 @@
   "scripts": {
     "server-dev": "npx nodemon --watch src",
     "db": "node src/dbcreator.js",
-    "loadReviews": "node src/loadReviews.js"
+    "loadReviews": "node src/loadReviews.js",
+    "k6test": "k6 src/metaScript.js"
   },
   "license": "Unlicensed",
   "dependencies": {
