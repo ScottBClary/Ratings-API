@@ -22,7 +22,7 @@ CREATE INDEX product_id_index ON everythingTogether (product_id);
 DROP TABLE `char_rev_temp`;
 DROP TABLE `char_temp`;
 -- CREATE INDEX review_id_index on everythingTogether (review_id);
-
+(!!! in bash !!!) mysqldump -u root SDC_Ratings > dump.sql
 -- CREATE INDEX recommend_index on everythingTogether (recommend)
 
 --SERVER COMMANDS
@@ -45,4 +45,4 @@ insert into characteristic_review (characteristic_id, review_id, rating) select 
 CREATE TABLE `everythingTogether` AS (SELECT t1.review_id, product_id, date, star_rating, recommend, body, summary, name, email, reported, response, helpfulness, characteristic, rating FROM REVIEW as t1 left join characteristic_review as t2 on t1.review_id = t2.review_id left join characteristic as t3 on t3.characteristic_id = t2.characteristic_id);
 
 CREATE INDEX product_id_index ON everythingTogether (product_id);
-
+CREATE INDEX char_ind ON everythingTogether (characteristic);
