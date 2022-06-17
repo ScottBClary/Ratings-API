@@ -284,10 +284,11 @@ app.get('/reviews/meta', (req, res) => {
 // -> Express Upload RestAPIs
 
 // create connection
-
-app.get(process.env.LOADERIOTOKEN, (req, res) => {
-  res.send(process.env.LOADERIOTOKEN);
-});
+if (process.env.LOADERIOTOKEN) {
+  app.get(process.env.LOADERIOTOKEN, (req, res) => {
+    res.send(process.env.LOADERIOTOKEN);
+  });
+}
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`));
 
