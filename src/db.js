@@ -2,14 +2,11 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 let db;
-console.log('Am i using a password?');
-console.log(process.env);
-console.log(process.env.PASSWORD);
-console.log(process.env.ENV);
+
 if (process.env.ENV === 'SERVER') {
   db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: process.env.DBIP,
+    user: 'remote',
     password: process.env.PASSWORD,
     multipleStatements: true,
   });

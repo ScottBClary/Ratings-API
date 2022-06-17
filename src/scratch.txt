@@ -38,8 +38,8 @@ scp -i ~/AWSlaunch/scottkey.pem ~/Downloads/dbstuff/characteristic_reviews.csv u
 scp -i scottkey.pem ./dump.sql  ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/home/ubuntu
 scp -i "scottkey.pem" "dump.sql" ec2-user@ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/
 
-scp -i "scottkey.pem" dump.sql ubuntu@ec2-18-224-214-220.us-east-2.compute.amazonaws.com:~/
-
+scp -i "scottkey.pem" dump.sql  ec2-18-118-111-158.us-east-2.compute.amazonaws.com:~/home/ubuntu
+scp -i scottkey.pem dump.sql  ec2-18-118-111-158.us-east-2.compute.amazonaws.com:~/home/ubuntu
 
 SELECT star_rating, COUNT(*) FROM everythingTogether where product_id=66942 GROUP BY star_rating;
 SELECT star_rating, COUNT(*) FROM review where product_id=66942 GROUP BY star_rating;
