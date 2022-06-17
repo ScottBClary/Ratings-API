@@ -144,48 +144,48 @@ app.get('/reviews/meta', (req, res) => {
   const product_id = req.query.product_id;
   const data = {};
 
-  //   // console.log('Data in request: ');
-  //   // console.log('{');
-  //   // console.log(` product_id: ${product_id}`);
-  //   // console.log('}');
-  //   // console.log(process.env);
-  db.query(`SELECT star_rating, COUNT(*) FROM review where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
-    if (err) {
-      console.log('error getting star ratings');
-      res.send(err.message);
-    } else {
-      data.ratings = {};
-      for (var x of result) {
-        data.ratings[x.star_rating] = x['COUNT(*)'];
-      }
-      db.query(`SELECT COUNT(*), recommend FROM review where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
-        if (err) {
-          console.log('error getting recommended');
-          res.send(err);
-        } else {
-          data.recommended = {};
-          // let num = result[`COUNT(*)`][0];
-          // console.log('num is ' + num);
-          // data.recommend =
-          data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
-          data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
-          db.query(`select characteristic, avg(rating) from everythingTogether where product_id=${product_id} group by characteristic;`, (err, result) => {
-            if (err) {
-              console.log('error getting characteristic ratings');
-              console.log(err);
-            } else {
-              data.characteristic = {};
-              for (var x of result) {
-                data.characteristic[x.characteristic.replaceAll('"', '')] = { value: x.value };
-              }
-              res.send(data);
-            }
-          });
-        }
-      });
-    }
-  });
-});
+//   //   // console.log('Data in request: ');
+//   //   // console.log('{');
+//   //   // console.log(` product_id: ${product_id}`);
+//   //   // console.log('}');
+//   //   // console.log(process.env);
+//   db.query(`SELECT star_rating, COUNT(*) FROM review where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
+//     if (err) {
+//       console.log('error getting star ratings');
+//       res.send(err.message);
+//     } else {
+//       data.ratings = {};
+//       for (var x of result) {
+//         data.ratings[x.star_rating] = x['COUNT(*)'];
+//       }
+//       db.query(`SELECT COUNT(*), recommend FROM review where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
+//         if (err) {
+//           console.log('error getting recommended');
+//           res.send(err);
+//         } else {
+//           data.recommended = {};
+//           // let num = result[`COUNT(*)`][0];
+//           // console.log('num is ' + num);
+//           // data.recommend =
+//           data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
+//           data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
+//           db.query(`select characteristic, avg(rating) from everythingTogether where product_id=${product_id} group by characteristic;`, (err, result) => {
+//             if (err) {
+//               console.log('error getting characteristic ratings');
+//               console.log(err);
+//             } else {
+//               data.characteristic = {};
+//               for (var x of result) {
+//                 data.characteristic[x.characteristic.replaceAll('"', '')] = { value: x.value };
+//               }
+//               res.send(data);
+//             }
+//           });
+//         }
+//       });
+//     }
+//   });
+// });
 
 //   db.query(`CREATE TEMPORARY TABLE IF NOT EXISTS p${product_id} SELECT * from everythingTogether where product_id = ${product_id};`, (err, result) => {
 //     if (err) {
@@ -233,49 +233,49 @@ app.get('/reviews/meta', (req, res) => {
 //   });
 // });
 
-//   db.query(`SELECT star_rating, COUNT(*) FROM review where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
-//     if (err) {
-//       console.log('error getting star ratings');
-//       res.send(err.message);
-//     } else {
-//       data.ratings = {};
-//       for (var x of result) {
-//         data.ratings[x.star_rating] = x['COUNT(*)'];
-//       }
+  db.query(`SELECT star_rating, COUNT(*) FROM review where product_id=${product_id} GROUP BY star_rating;`, (err, result) => {
+    if (err) {
+      console.log('error getting star ratings');
+      res.send(err.message);
+    } else {
+      data.ratings = {};
+      for (var x of result) {
+        data.ratings[x.star_rating] = x['COUNT(*)'];
+      }
 
-//       //* NEXT QUERY
+      //* NEXT QUERY
 
-//       db.query(`SELECT COUNT(*), recommend FROM review where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
-//         if (err) {
-//           console.log('error getting recommended');
-//           res.send(err);
-//         } else {
-//           data.recommended = {};
-//           // let num = result[`COUNT(*)`][0];
-//           // console.log('num is ' + num);
-//           // data.recommend =
-//           data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
-//           data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
-//         }
-//       });
+      db.query(`SELECT COUNT(*), recommend FROM review where product_id=${product_id} GROUP BY recommend;`, (err, result) => {
+        if (err) {
+          console.log('error getting recommended');
+          res.send(err);
+        } else {
+          data.recommended = {};
+          // let num = result[`COUNT(*)`][0];
+          // console.log('num is ' + num);
+          // data.recommend =
+          data.recommended[0] = (result[1] || 0)['COUNT(*)'] || 0;
+          data.recommended[1] = (result[0] || 0)['COUNT(*)'] || 0;
+        }
+      });
 
-//       // We need characteristics and the name of characteristics
-//       db.query(`select characteristic, AVG(t2.rating) AS average from review t1 inner join characteristic_review t2 inner join characteristic t3 where t1.product_id = ${product_id} AND t2.review_id = t1.review_id AND t3.characteristic_id = t2.characteristic_id group by characteristic;`, (err, result) => {
-//         if (err) {
-//           console.log('error getting characteristic ratings');
-//           console.log(err);
-//         } else {
-//           // console.log(result);
-//           data.characteristics = {};
-//           for (var char of result) {
-//             data.characteristics[char.characteristic.toString().replace(/"/g, '')] = { value: char.average };
-//           }
-//           res.send(data);
-//         }
-//       });
-//     }
-//   });
-// });
+      // We need characteristics and the name of characteristics
+      db.query(`select characteristic, AVG(t2.rating) AS average from review t1 inner join characteristic_review t2 inner join characteristic t3 where t1.product_id = ${product_id} AND t2.review_id = t1.review_id AND t3.characteristic_id = t2.characteristic_id group by characteristic;`, (err, result) => {
+        if (err) {
+          console.log('error getting characteristic ratings');
+          console.log(err);
+        } else {
+          // console.log(result);
+          data.characteristics = {};
+          for (var char of result) {
+            data.characteristics[char.characteristic.toString().replace(/"/g, '')] = { value: char.average };
+          }
+          res.send(data);
+        }
+      });
+    }
+  });
+});
 
 // res.send('Get recieved for reviews/meta');
 
