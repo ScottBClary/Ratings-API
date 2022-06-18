@@ -285,7 +285,7 @@ app.get('/reviews/meta', (req, res) => {
 
 // create connection
 if (process.env.LOADERIOTOKEN) {
-  app.get(process.env.LOADERIOTOKEN, (req, res) => {
+  app.get(`/${process.env.LOADERIOTOKEN}.txt`, (req, res) => {
     res.send(process.env.LOADERIOTOKEN);
   });
 }
