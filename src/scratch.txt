@@ -47,3 +47,7 @@ select characteristic, avg(rating) from everythingTogether where product_id=6694
 
 
 CREATE INDEX char_ind ON everythingTogether (characteristic);
+
+%{*:900000-950000}  error set 1 % timeout 2 seconds
+ssh -i "scottkey.pem" ubuntu@ec2-18-223-182-147.us-east-2.compute.amazonaws.com
+ssh -i "scottkey.pem" ubuntu@ec2-3-141-15-41.us-east-2.compute.amazonaws.com
